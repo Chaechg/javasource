@@ -12,14 +12,14 @@ public class DeptDAO {
 	// empDAO static, Connection
 	static {
 		try {
-			Class.forName("oracle.jdbc,OracleDriver");
+			Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static Connection getConnection() {
-		String url = "jdbc:oracle:thin:@localhost:1524:xe";
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String user = "c##scott";
 		String password = "tiger";
 
@@ -99,7 +99,7 @@ public class DeptDAO {
 		return dto;
 	}
 
-	// 새로운 부서 입력 inset into dept_temp(deptno,dname,loc) valuse (?,?,?)
+	// 새로운 부서 입력 insert into dept_temp(deptno,dname,loc) valuse (?,?,?)
 	public boolean insert(DeptDTO dto) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -107,8 +107,7 @@ public class DeptDAO {
 
 		try {
 			con = getConnection();
-			String sql = "insert into dept_temp(deptno,dname,loc) ";
-			sql += "valuse (?,?,?)";
+			String sql = "insert into dept_temp(deptno,dname,loc) valuse (?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, dto.getDeptno());
 			pstmt.setString(2, dto.getDname());
