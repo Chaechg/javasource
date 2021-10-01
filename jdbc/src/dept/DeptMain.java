@@ -7,6 +7,15 @@ public class DeptMain {
 		boolean run = true;
 		Scanner sc = new Scanner(System.in);
 				
+<<<<<<< HEAD
+=======
+		
+		while (run) {
+			
+		}
+		
+		
+>>>>>>> refs/heads/hotfix
 		
 		while (run) {
 			
