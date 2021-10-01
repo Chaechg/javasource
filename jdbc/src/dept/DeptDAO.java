@@ -97,7 +97,7 @@ public class DeptDAO {
 		return dto;
 	}
 	// 새로운 부서 입력 inset into dept_temp(deptno,dname,loc) valuse (?,?,?)
-	public boolean insert (DeptDTO dto) {
+	public boolean insert(DeptDTO dto) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean insertFlag = false;
@@ -126,6 +126,36 @@ public class DeptDAO {
 		}
 		return insertFlag;
 	}
+	//부서명 변경 : update dept_temp set dname=? where deptno=?
+	public boolean update(String dname, int deptNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean updateFlag = false;
+		
+		try {
+			con = getConnection();
+			String sql = "update dept_temp set dname=? where deptno=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dname);
+			pstmt.setInt(2, deptNo);
+			
+			int result = pstmt.executeUpdate();
+			if (result > 0) {
+				updateFlag = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return updateFlag;
+	}
+	
 
 
 
