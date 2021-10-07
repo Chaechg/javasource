@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 public class ButtonTest1 extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
+	private JButton left,middle,right;
 
 	/**
 	 * Launch the application.
@@ -38,36 +39,60 @@ public class ButtonTest1 extends JFrame implements ActionListener {
 	 */
 	public ButtonTest1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(1000, 100, 450, 300);
+		setBounds(1000, 200, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnNewButton = new JButton("Disalbe middle Button");
-		btnNewButton.setIcon(new ImageIcon(ButtonTest1.class.getResource("/component/left.gif")));
-		btnNewButton.setMnemonic('D');
-		contentPane.add(btnNewButton);
+		left = new JButton("Disalbe middle Button");
+		left.setActionCommand("disalbe"); // 화면상의 변화는 없다.
+		left.addActionListener(this); // 버튼이 눌렸는지 감지
+		left.setIcon(new ImageIcon(ButtonTest1.class.getResource("/component/left.gif")));
+		left.setMnemonic('D');
+		contentPane.add(left);
 		
-		JButton btnNewButton_1 = new JButton("Middle Button");
-		btnNewButton_1.setIcon(new ImageIcon(ButtonTest1.class.getResource("/component/middle.gif")));
-		btnNewButton_1.setMnemonic('M');
-		contentPane.add(btnNewButton_1);
+		middle = new JButton("Middle Button");
+		middle.setActionCommand("middle");
+		middle.addActionListener(this);
+		middle.setIcon(new ImageIcon(ButtonTest1.class.getResource("/component/middle.gif")));
+		middle.setMnemonic('M');
+		contentPane.add(middle);
 		
-		JButton btnNewButton_2 = new JButton("Enable middle Button");
-		btnNewButton_2.setIcon(new ImageIcon(ButtonTest1.class.getResource("/component/right.gif")));
-		btnNewButton_2.setMnemonic('E');
-		contentPane.add(btnNewButton_2);
+		right = new JButton("Enable middle Button");
+		right.setActionCommand("enable");
+		right.addActionListener(this);
+		right.setIcon(new ImageIcon(ButtonTest1.class.getResource("/component/right.gif")));
+		right.setMnemonic('E');
+		contentPane.add(right);
 		
-		pack(); // 창의 크기를 버튼의 크기에 맞게 출력
-		
+		pack(); // 창의 크기를 버튼의 크기에 맞게 출력	
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		String cmd = e.getActionCommand();
+		//System.out.println(cmd);
 		
+		// disable 버튼 클릭이 되면
+		if (cmd.equals("disable")) {
+			// middle 버튼 비활성화
+			middle.setEnabled(false);
+			// disable 버튼 비활성화
+			left.setEnabled(false);
+			// enable 버튼 활성화
+			right.setEnabled(true);
+		} else { // enable 버튼 클릭이 되면
+			
+			// middle 버튼 활성화
+			middle.setEnabled(true);
+			// disable 버튼 활성화
+			left.setEnabled(true);
+			// enable 버튼 비활성화
+			right.setEnabled(false);
+		}
 	}
+	
 
 }
